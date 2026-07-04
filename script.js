@@ -441,7 +441,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!valid) return;
 
       const accessKey = contactForm.querySelector('[name="access_key"]')?.value;
-      if (!accessKey || accessKey === '271b434d-0e80-4802-b3fd-a17279e9cc26' ) {
+     if (!accessKey || accessKey === 'YOUR-WEB3FORMS-ACCESS-KEY-HERE') {
         console.error('Web3Forms access_key is not set — see index.html contact form.');
         showBanner(errorEl);
         return;
