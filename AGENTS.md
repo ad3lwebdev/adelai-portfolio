@@ -12,8 +12,6 @@ A zero-dependency, pure HTML/CSS/JS portfolio website for Adel Auditor (AI Autom
 ├── style.css    — All styling (custom properties, animations, responsive)
 ├── script.js    — All interactivity (no libraries)
 ├── data.json    — Editable content: skills[] and projects[] (see below)
-├── n8n-workflow-contact-automation.json — Import into n8n: powers the
-│                  contact form's lead-notification + auto marketing reply
 ├── README.md
 └── AGENTS.md
 ```
@@ -92,7 +90,7 @@ All code runs inside a single `DOMContentLoaded` listener. No global state excep
 | Skill bars           | `IntersectionObserver` on `.skill-fill[data-width]`, sets `style.width` (invoked by `initSkillBars()` after render) |
 | Scroll reveal        | `IntersectionObserver` adds `.visible` to `.reveal` elements |
 | Active nav           | Scroll listener reads `section.offsetTop`, sets `.active` on `.nav-link` |
-| Contact form         | `#contact-form` — client-side validation, then `fetch()` POST as JSON to an n8n Webhook (`N8N_WEBHOOK_URL` constant); honeypot field (`botcheck`) is included in the payload and dropped server-side by the n8n workflow |
+| Contact form         | `#contact-form` — client-side validation, then real submission via `fetch()` to Web3Forms (`api.web3forms.com/submit`); honeypot field drops bots |
 | Footer year          | Sets `#footer-year` to `new Date().getFullYear()` |
 
 ## Non-Obvious Decisions

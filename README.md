@@ -18,34 +18,42 @@ A premium, production-ready personal portfolio website for Adel Auditor, an AI A
 - **Fully responsive** — mobile-first, breakpoints at 768px and 1024px
 - **SEO optimised** — Open Graph, Twitter Card, canonical, meta descriptions
 
-## Contact Form (n8n automation)
+## FAQ Chat Widget (no backend, no API cost)
 
-The contact form POSTs to an **n8n Webhook**. The included workflow —
-`n8n-workflow-contact-automation.json` — does two things on every real
-submission:
+A floating chat assistant ("AVA") sits in the bottom-right corner of every
+page. It's fully client-side — no AI API, no server, no ongoing cost — and
+answers by matching keywords in the visitor's question against the entries
+in **`faq.json`**.
 
-1. **Notifies you** by email with the lead's name, email, subject, and message.
-2. **Auto-replies** to the visitor's own email address with a friendly
-   marketing/welcome message — instant lead-capture follow-up, no manual work.
+**To edit what it says:**
+1. Open `faq.json`
+2. Edit `greeting`, `fallback`, `quickQuestions` (the suggestion chips), or
+   any entry in `faqs` — each has a list of `keywords` to match against and
+   an `answer` to show when matched
+3. Save, commit, push — live immediately, no code changes needed
 
-A spam check (the honeypot field, `botcheck`) branches obvious bots into a
-silent no-op instead of sending any emails.
+If nothing matches, it falls back to the `fallback` message pointing the
+visitor to the real contact form.
+
+## Contact Form (Web3Forms)
+
+The contact form sends real emails via [Web3Forms](https://web3forms.com) —
+a free, backend-free form relay (no signup account needed, just an access
+key delivered to your email).
 
 **One-time setup:**
-1. Open (or sign up for) n8n — self-hosted or [n8n cloud](https://n8n.io).
-2. In n8n: **Workflows → Import from File** and select
-   `n8n-workflow-contact-automation.json`.
-3. Open the **Notify Adel (Owner)** and **Auto-Reply Marketing Email to
-   Client** nodes and attach your SMTP credentials (Gmail app password,
-   or any SMTP provider). Adjust the `fromEmail` / `toEmail` fields if needed.
-4. Feel free to rewrite the HTML in **Auto-Reply Marketing Email to Client**
-   — that's the marketing copy the client receives.
-5. Click the **Contact Form Webhook** node → copy the **Production URL**.
-6. Activate the workflow (toggle in the top-right of the n8n editor).
-7. Open `script.js`, find `N8N_WEBHOOK_URL` near the top of the
-   `CONTACT FORM` section, and paste your production webhook URL in.
-8. Save, commit, push — done. Every submission now emails you *and*
-   auto-replies to the client.
+1. Go to https://web3forms.com and enter the email where you want to
+   receive messages (e.g. `adelauditor05@gmail.com`)
+2. Copy the **Access Key** you receive
+3. Open `index.html`, find this line near the top of the contact form:
+   ```html
+   <input type="hidden" name="access_key" value="YOUR-WEB3FORMS-ACCESS-KEY-HERE" />
+   ```
+4. Replace `YOUR-WEB3FORMS-ACCESS-KEY-HERE` with your real access key
+5. Save, commit, push — done. Every form submission now emails you directly.
+
+No monthly cap on the free plan for this volume of traffic. A built-in
+honeypot field (`botcheck`) silently drops obvious bot submissions.
 
 ## Updating Your Skills & Projects
 
